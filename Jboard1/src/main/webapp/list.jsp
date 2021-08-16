@@ -2,6 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 	MemberBean mb = (MemberBean) session.getAttribute("sessMember");
+	//sessMember는 세션 고유번호 ,이게 세션 객체에 저장 된다 
 	
 	if(mb == null){
 		// 로그인을 하지 않고 list 페이지를 요청했을 때
@@ -53,7 +54,7 @@
             </div>
 
             <!-- 글쓰기 버튼 -->
-            <a href="./write.html" class="btnWrite">글쓰기</a>
+            <a href="/Jboard1/write.jsp" class="btnWrite">글쓰기</a>
 
         </section>
     </div>    
