@@ -1,3 +1,6 @@
+<%@page import="Kr.co.jboard1.bean.ArticleBean"%>
+<%@page import="Kr.co.jboard1.dao.ArticleDao"%>
+<%@page import="java.util.List"%>
 <%@page import="Kr.co.jboard1.bean.MemberBean"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%
@@ -9,6 +12,37 @@
 		response.sendRedirect("/Jboard1/user/login.jsp?success=102");
 		return;
 	}
+	// 전송데이터 수신
+	request.setCharacterEncoding("utf-8");
+	String pg = request.getParameter("pg");
+	
+	// 페이지 처리
+	int start = 0;
+	int currentPage = Integer.parseInt(pg);
+	// paresInt 레퍼클래스의 메서드,문자열을 숫자로 전환 시킨
+	int total = ArticleDao.getInstance().selectCountTotal();
+	int lastPageNum = 0;
+	// getInstance()는 new 연산자를 이용해서 클래스를 새로운 메모리에 할당 그리고 싱글톤 사용시 사용한다 
+	// 최초에 할당된 하나의 메모리를 계속 쓰는 방식 ---- 즉 싱글톤에 사용한다는 소리 
+	
+	if(total % 10 == 0){
+		lastPageNum = total / 10;
+	}else{
+		lastPageNum = total / 10 + 1;
+	}
+	start = (currentPage - 1) * 10;
+	
+	int pageStartNum = total - start;
+	int groupCurrent = (int)Math.ceil(currentPage / 10.0);
+	// 실수로 나누는 이유는 나머지를 가지기 위해서이다. 실수이기 때문에 (int)화 해주고 Math.ceil를 사용해서 반올림 하여준다. 	
+	int groupStart = (groupCurrent - 1) * 10 + 1;
+	int groupEnd = groupCurrent * 10;
+	
+	if(groupEnd > lastPageNum){
+		groupEnd = lastPageNum;
+	}
+	
+	List<ArticleBean> articles = ArticleDao.getInstance().selectArticles(start);
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,23 +68,32 @@
                         <th>날짜</th>
                         <th>조회</th>
                     </tr>
+                    <% for(ArticleBean article : articles){ %>
                     <tr>
-                        <td>1</td>
-                        <td><a href="./view.html">테스트 제목입니다.</a>&nbsp;[3]</td>
-                        <td>길동이</td>
-                        <td>20-05-12</td>
-                        <td>12</td>
+                        <td><%= pageStartNum-- %></td>
+                        <td><a href="./view.html"><%= article.getTitle() %></a>&nbsp;[<%= article.getComment() %>]</td>
+                        <td><%= article.getNick() %></td>
+                        <td><%= article.getRdate().substring(2 ,10) %></td>
+                        <!-- substring으로 잘라낸 이유는 게시글 업로드의 년월일까지만 보기 위해서 이다. -->
+                        <td><%= article.getHit() %></td>
                     </tr>
+                    <% } %>
                 </table>
             </article>
 
             <!-- 페이지 네비게이션 -->
             <div class="paging">
-                <a href="#" class="prev">이전</a>
-                <a href="#" class="num current">1</a>                
-                <a href="#" class="num">2</a>                
-                <a href="#" class="num">3</a>                
-                <a href="#" class="next">다음</a>
+            	<% if(groupStart > 1) { %>
+                	<a href="/Jboard1/list.jsp?pg<%= groupStart -1 %>" class="prev">이전</a>
+                <% } %>
+                
+                <% for(int i=groupStart ; i<=groupEnd; i++){ %>
+                	<a href="/Jboard1/list.jsp?pg=<%= i %>" class="num <%=(currentPage == i) ? "current":"" %>"><%= i %></a>                
+                <% } %>
+                
+                <% if(groupEnd < lastPageNum){ %>
+                	<a href="/Jboard1/list.jsp?pg=<%=groupEnd + 1 %>" class="num">다음</a>                
+				<% } %>
             </div>
 
             <!-- 글쓰기 버튼 -->
