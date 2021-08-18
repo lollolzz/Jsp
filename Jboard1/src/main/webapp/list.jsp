@@ -16,6 +16,11 @@
 	request.setCharacterEncoding("utf-8");
 	String pg = request.getParameter("pg");
 	
+	if(pg == null){
+		pg = "1";
+	}// pg를 한번에 차리하기 위한 함수식이다 
+	
+	
 	// 페이지 처리
 	int start = 0;
 	int currentPage = Integer.parseInt(pg);
@@ -71,7 +76,7 @@
                     <% for(ArticleBean article : articles){ %>
                     <tr>
                         <td><%= pageStartNum-- %></td>
-                        <td><a href="./view.html"><%= article.getTitle() %></a>&nbsp;[<%= article.getComment() %>]</td>
+                        <td><a href="/Jboard1/view.jsp?seq=<%= article.getSeq() %>"><%= article.getTitle() %></a>&nbsp;[<%= article.getComment() %>]</td>
                         <td><%= article.getNick() %></td>
                         <td><%= article.getRdate().substring(2 ,10) %></td>
                         <!-- substring으로 잘라낸 이유는 게시글 업로드의 년월일까지만 보기 위해서 이다. -->
@@ -97,7 +102,7 @@
             </div>
 
             <!-- 글쓰기 버튼 -->
-            <a href="/Jboard1/write.jsp" class="btnWrite">글쓰기</a>
+            <a href="/Jboard1/write.jsp?pg<%= pg %>" class="btnWrite">글쓰기</a>
 
         </section>
     </div>    

@@ -8,6 +8,12 @@
 			response.sendRedirect("/Jboard1/user/login.jsp?success=102");
 			return;
 		}
+		
+		request.setCharacterEncoding("utf-8");
+		String pg = request.getParameter("pg");
+		// 리스트에서 글쓰기 후 글쓰기 취소를 누르면 1페이지로 돌아오게 하기위한 것 .
+		
+		
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,7 +46,7 @@
                         </tr>
                     </table>
                     <div>
-                        <a href="/Jboard1/list.jsp" class="btnCancel">취소</a>
+                        <a href="/Jboard1/list.jsp"?pg<%= pg %>" class="btnCancel">취소</a>
                         <input type="submit"  class="btnWrite" value="작성완료">
                     </div>
                 </form>

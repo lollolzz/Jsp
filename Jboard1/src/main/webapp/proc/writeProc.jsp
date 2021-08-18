@@ -107,7 +107,7 @@
 			
 		}
 		// 리다이렉트
-		response.sendRedirect("/Jboard1/list.jsp");
+		response.sendRedirect("/Jboard1/list.jsp?pg=1");
 
 
 
