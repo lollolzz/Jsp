@@ -1,5 +1,4 @@
 /* 초기화 */
-/* 자식 태그에 absolute가 있다면 부모태그에 relative를 해줘야한다. */
 * {
     margin: 0;
     padding: 0;
@@ -232,6 +231,12 @@ body {}
 #board .btnDelete { padding: 8px; border: 1px solid #bebebe; background: #fdfdfd; color: #111;}
 #board .btnModify { padding: 8px; border: 1px solid #bebebe; background: #fdfdfd; color: #111;}
 #board .btnList   { padding: 8px; border: 1px solid #bebebe; background: #fdfdfd; color: #111;}
+
+#board .btnCommentDel    {} 
+#board .btnCommentModify {} 
+#board .btnCommentCancel {display: none;} 
+
+
 
 /* 게시판 - 글목록 */
 #board.list {

@@ -73,10 +73,22 @@ public class Sql {
 											  + "`regip`=?,"
 											  + "`rdate`=NOW();";
 	
-	
+	public static final String UPDATE_ARTICLE = "UPDATE `Jboard_article` SET "
+																			+ "`title`=?,"
+																			+ "`content`=? "
+																			+ "WHERE `seq`=?";
 	public static final String UPDATE_ARTICLE_HIT = "UPDATE `Jboard_article` SET `hit` = `hit` + 1 WHERE `seq`=?;";
-	public static final String UPDATE_COMMENT_COUNT = "UPDATE `Jboard_article` SET `comment` = `commnet` + 1 WHERE `seq`=?;";
+	public static final String UPDATE_COMMENT_COUNT_PLUS = "UPDATE `Jboard_article` SET `comment` = `comment` + 1 WHERE `seq`=?;";
+	public static final String UPDATE_COMMENT_COUNT_MINUS = "UPDATE `Jboard_article` SET `comment` = `comment` - 1 WHERE `seq`=?;";
 	// update들은 양식이 동일 하다 
+	
+	public static final String UPDATE_COMMENT = "UPDATE `Jboard_article` SET `content`=? WHERE `seq`=?";
+	
+	public static final String DELETE_ARTICLE = "DELETE FROM `Jboard_article` WHERE `seq`=?";
+	public static final String DELETE_COMMNET = "DELETE FROM `Jboard_article` WHERE `seq`=?";
+
+
+
 }
 
 

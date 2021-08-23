@@ -47,7 +47,6 @@ public class ArticleDao {
 			  sql구문을 하나의 statement객체로 수행이 가능(재사용 가능)
 			  하지만 , preparedStatement는 객체 생성시 지정된 sql명령어만을 실행 할 수 잇다.
 			  (다른 sql은 사용x -> 재사용 x)
-			 
 			*/
 			// 4단계
 			ResultSet rs = psmt.executeQuery();
@@ -227,7 +226,22 @@ public class ArticleDao {
 		}
 	}
 	
-	public void updateArticle() {}
+	public void updateArticle(String title, String content, String seq) {
+		
+		try {
+			
+				Connection conn = DBConfig.getInstance().getConnection();
+				PreparedStatement psmt = conn.prepareStatement(Sql.UPDATE_ARTICLE);
+				psmt.setString(1, title);
+				psmt.setString(2, content);
+				psmt.setString(3, seq);
+				
+				psmt.executeUpdate();
+				conn.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public void updateArticleHit(String seq) {
 		// 조회수 업데이트
@@ -248,10 +262,17 @@ public class ArticleDao {
 		}
 	}
 	
-	public void updateCommentCount(String parent) {
+	public void updateCommentCount(String parent, int type) {
 		try {
 			Connection conn = DBConfig.getInstance().getConnection();
-			PreparedStatement psmt = conn.prepareStatement(Sql.UPDATE_COMMENT_COUNT);
+			
+			PreparedStatement psmt = null;
+			
+			if(type>0) {
+				psmt = conn.prepareStatement(Sql.UPDATE_COMMENT_COUNT_PLUS);
+			}else
+				psmt = conn.prepareStatement(Sql.UPDATE_COMMENT_COUNT_MINUS);
+					
 			psmt.setString(1, parent);
 			psmt.executeUpdate();
 			psmt.close();
@@ -262,6 +283,53 @@ public class ArticleDao {
 		}
 	}
 	
-	public void deleteArticle() {}
+
+	public int updateComment(String content, String seq) {
+		
+		int result = 0;
+		
+		try {
+			Connection conn = DBConfig.getInstance().getConnection();
+			PreparedStatement psmt = conn.prepareStatement(Sql.UPDATE_COMMENT);
+			psmt.setString(1, content);
+			psmt.setString(2, seq);
+			result = psmt.executeUpdate();
+			psmt.close();
+			conn.close();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public void deleteArticle(String seq) {
+		
+		try {
+			Connection conn = DBConfig.getInstance().getConnection();
+			PreparedStatement psmt = conn.prepareStatement(Sql.DELETE_ARTICLE);
+			psmt.setString(1, seq);
+			psmt.executeUpdate();
+			conn.close();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void deleteComment(String seq) {
+		
+		try {
+			Connection conn = DBConfig.getInstance().getConnection();
+			PreparedStatement psmt = conn.prepareStatement(Sql.DELETE_COMMNET);
+			psmt.setString(1, seq);
+			psmt.executeUpdate();
+			conn.close();
+			psmt.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 }

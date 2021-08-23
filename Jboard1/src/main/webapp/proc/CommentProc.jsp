@@ -22,7 +22,7 @@
 	ArticleDao.getInstance().insertComment(ab);
 	
 	// 댓글 카운트 업데이트
-	ArticleDao.getInstance().updateCommentCount(parent);
+	ArticleDao.getInstance().updateCommentCount(parent, +1);
 	
 	// 리다이렉트
 	response.sendRedirect("/Jboard1/view.jsp?seq="+parent);
