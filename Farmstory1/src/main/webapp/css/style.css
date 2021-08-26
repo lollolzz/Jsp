@@ -103,6 +103,10 @@ main{
     height: auto;
 
 }
+main > div {
+    width: 100%;
+    margin-top: 10px;
+}
 /* 메인-slider */
 main > .slider {
     position: relative;
@@ -166,14 +170,15 @@ main > .slider > .float_banner_b{
 
 
 /* 메인-banner */
-main > .banner{height: 74px;}
-main > .banner > a {
+main > .banner {height: 74px;}
+main > .banner >  a {
     float: left;
     display: block;
     width: 50%;
     height: 100%;
+    padding: 12px;
+    box-sizing: border-box;
 }
-
 main > .banner > a:nth-child(1) {background-image: url('../img/main_banner_sub1_bg.jpg');}
 main > .banner > a:nth-child(2) {background-image: url('../img/main_banner_sub2_bg.jpg');}
 
@@ -199,7 +204,7 @@ main > .latest > article > img {
 }
 main > .latest > article > table {
     position: absolute;
-    right: 7px;
+    right: 12px;
     bottom: 14px;
     color: #6a6a6a;
     
@@ -220,50 +225,54 @@ main > .latest > article > table td:nth-child(2) {
     line-height: 18px;
 }
 /* 메인-info */
-main > .info {height: 154px;}
-main > .info > article {
-    position: relative;
+main > .info {
+    height: 154px;
+    overflow: hidden;
+    padding: 10px 0;
+    border-top: 2px solid #756c65;
+    box-sizing: border-box;
+}
+
+main > .info > div {
     float: left;
-    width: 40%;
     height: 100%;
 }
-main > .info > article > a{
-    position: absolute;
-    left: 2%;
-    margin-bottom: 100px;
+main > .info > div:nth-child(1) {
+    width: 386px;
+}
+main > .info > div:nth-child(2) {
+    width: 230px;
+    padding-left: 16px;
+    border-left: 1px solid #d7d7d7;
+    border-right: 1px solid #d7d7d7;
+    box-sizing: border-box;
+}
+main > .info > div:nth-child(3) {
+    width: 360px;
+    padding-left: 10px;
+    box-sizing: border-box;
 }
 
-main > .info > article > img {
-    position: absolute;
-    left: 2%;
-    bottom: 80px;
-
+main > .info .cs {
+    overflow: hidden;
 }
-main > .info > article > li {
-    position: absolute;
-    left: 14%;
-    bottom: 80px;
-}
-main > .info > article > table {
-   
-    position: absolute;
-    left: 50%;
-    bottom: 85px;
-    font-size: xx-small;
+main > .info .cs > * {
+    float: left;
+    margin-right: 16px;
     color: #6a6a6a;
-
 }
 
-main > .info > article > ul {
-    position: absolute;
-    left: 2%;
-    bottom: 30%;
+main > .info .btns {
+    margin-top: 20px;
 }
-main > .info > article > ul > a:nth-child(3) {
-   position: absolute;
-   left: 101.4%;
-   
 
+main > .info > div > .tit {
+    margin-bottom: 16px;
+}
+
+main > .info > div > .account {
+    line-height: 18px;
+    color: #666;
 }
 
 

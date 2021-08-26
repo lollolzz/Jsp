@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%> 
+<%@ include file="../_header.jsp" %>
 <%
 	String mode = request.getParameter("mode");
 
@@ -6,7 +7,7 @@
 		mode = "l";
 	}
 	%>
-<%@ include file="../_header.jsp" %>
+
 <div id="sub" class="cate3">
     <div><img src="/Farmstory1/img/sub_top_tit3.png" alt="CROPTALK"></div>
     <section>
@@ -28,14 +29,17 @@
 
             <!-- 내용 시작 -->
            <% if(mode.equals("l")){ %>
-           		<jsp:include page="../board/list.jsp"/>
-           <% }else if(mode.equals("w")){ %>
-           		<jsp:include page="../board/write.jsp"/>
-     	   <% } else if(mode.equals("v")){ %>
-     	   		<jsp:include page="../board/view.jsp"/>
-	   	   <% } else if(mode.equals("m")){ %>
-	   	   		<jsp:include page="../board/modify.jsp"/>
-	   	   <% } %>		
+            	<jsp:include page="../board/list.jsp"/>
+            <% }else if(mode.equals("w")){ %>
+           		 <jsp:include page="../board/write.jsp">
+           		 	<jsp:param name="uid" value="<%= mb.getUid() %>"/>
+           		 </jsp:include>
+           	<!-- 위의 용법대로 사용한 param 형식으로 write페이지를 인클루드 해온다  -->	 
+            <% }else if(mode.equals("v")){ %>
+            	<jsp:include page="../board/view.jsp"/>
+            <% }else if(mode.equals("m")){ %>
+           		 <jsp:include page="../board/modify.jsp"/>
+           	<% } %>
             <!-- 내용 끝 -->
         </article>
     </section>
