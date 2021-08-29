@@ -3,11 +3,13 @@ package Kr.co.Farmstory1.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import Kr.co.Farmstory1.bean.ArticleBean;
 import Kr.co.Farmstory1.bean.FileBean;
+import Kr.co.Farmstory1.bean.TermsBean;
 import Kr.co.Farmstory1.db.DBConfig;
 import Kr.co.Farmstory1.db.Sql;
 
