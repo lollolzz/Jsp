@@ -18,7 +18,7 @@
 <section id="board" class="write">
     <h3>글쓰기</h3>
     <article>
-        <form action="/Farmstory1/board/proc/writeProc.jsp" method="post">
+        <form action="/Farmstory1/board/proc/writeProc.jsp" method="post" enctype="multipart/form-data">
         	<input type="hidden" name="cate" value="<%=cate %>" />
         	<!-- cate를 전송하기 위해 form 에 input을 해준것  -->
         	<input type="hidden" name="uid" value="<%=uid %>" /> 

@@ -26,7 +26,7 @@ public class ArticleDao {
 	
 	private ArticleDao() {}
 	
-	public int selectCountTotal() {
+	public int selectCountTotal(String cate) {
 		int total = 0;
 		
 		try{
@@ -50,6 +50,7 @@ public class ArticleDao {
 			  하지만 , preparedStatement는 객체 생성시 지정된 sql명령어만을 실행 할 수 잇다.
 			  (다른 sql은 사용x -> 재사용 x)
 			*/
+			psmt.setString(1, cate);
 			// 4단계
 			ResultSet rs = psmt.executeQuery();
 			// query
@@ -150,7 +151,7 @@ public class ArticleDao {
 
 	}
 	
-	public List<ArticleBean> selectArticles(int start) {
+	public List<ArticleBean> selectArticles(String cate, int start) {
 		
 		List<ArticleBean> articles = new ArrayList<>();
 		
@@ -159,7 +160,8 @@ public class ArticleDao {
 			Connection conn = DBConfig.getInstance().getConnection();
 			
 			PreparedStatement psmt = conn.prepareStatement(Sql.SELECT_ARTICLES);
-			psmt.setInt(1, start);
+			psmt.setString(1, cate);
+			psmt.setInt(2, start);
 			
 			ResultSet rs = psmt.executeQuery();
 			
@@ -189,6 +191,37 @@ public class ArticleDao {
 		}
 		
 		return articles;
+	}
+	
+public FileBean selectFile(String fseq) {
+		
+		FileBean fb = null;
+		// 생성하고 동시에 선언하는것보다 초기화를 먼저해서하는것이 좋다 
+		
+		try {
+			
+			Connection conn = DBConfig.getInstance().getConnection();
+			PreparedStatement psmt = conn.prepareStatement(Sql.SELECT_FILE);
+			psmt.setString(1, fseq);
+			ResultSet rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				fb = new FileBean();
+				fb.setFseq(rs.getInt(1));
+				fb.setParent(rs.getInt(2));
+				fb.setOriName(rs.getString(3));
+				fb.setNewName(rs.getString(4));
+				fb.setDownload(rs.getInt(5));
+				fb.setRdate(rs.getString(6));
+			}
+			rs.close();
+			conn.close();
+			psmt.close();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return fb;
 	}
 	
 	public List<ArticleBean> selectComments(String seq){
@@ -236,7 +269,24 @@ public class ArticleDao {
 		
 	}
 	
-	public void insertArticle(ArticleBean article) {
+	public int selectMaxSeq() {
+		int seq = 0;
+		
+		try {
+			Connection conn = DBConfig.getInstance().getConnection();
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(Sql.SELECT_MAX_SEQ);
+			if(rs.next()){
+				seq = rs.getInt(1);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return seq;
+	}
+	
+	public int insertArticle(ArticleBean article) {
 		
 		try {
 			Connection conn = DBConfig.getInstance().getConnection();
@@ -255,7 +305,25 @@ public class ArticleDao {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
+			// 글 등록 후 바로 해당 글번호 리턴 
+				return selectMaxSeq();
 	} 
+	
+	
+	public void insertFile(int seq, String oriName, String newName) {
+		try{
+			Connection conn = DBConfig.getInstance().getConnection();
+			PreparedStatement psmt = conn.prepareStatement(Sql.INSERT_FILE);
+			psmt.setInt(1, seq);
+			psmt.setString(2, oriName);
+			psmt.setString(3, newName);
+			psmt.executeUpdate();
+			psmt.close();
+			conn.close();
+		}catch(Exception e){
+			e.printStackTrace();	
+		}
+	}
 	
 	// Comment insert와 update를 같이 써도 되지만 묶어서 사용 하는 것이 좋다 
 	public void insertComment(ArticleBean ab) {
@@ -354,6 +422,19 @@ public class ArticleDao {
 			e.printStackTrace();
 		}
 		return result;
+	}
+	
+	public void updateFileDownload(String fseq) {
+		try {
+			Connection conn = DBConfig.getInstance().getConnection();
+			PreparedStatement psmt = conn.prepareStatement(Sql.UPDATE_FILE_DOWNLOAD);
+			psmt.setString(1,  fseq);
+			psmt.executeUpdate();
+			
+		}catch(Exception e) {
+			
+			e.printStackTrace();
+		}
 	}
 	
 	public void deleteArticle(String seq) {

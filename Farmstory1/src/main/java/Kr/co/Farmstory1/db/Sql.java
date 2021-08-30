@@ -25,7 +25,7 @@ public class Sql {
 	
 	
 	// 게시판 관련 
-	public static final String SELECT_COUNT_TOTAL = "SELECT COUNT(`seq`) FROM `Jboard_article` WHERE `parent`=0;";
+	public static final String SELECT_COUNT_TOTAL = "SELECT COUNT(`seq`) FROM `Jboard_article` WHERE `parent`=0 AND `cate`=?";
 	
 	public static final String SELECT_LATEST = "SELECT `seq`, `title`, `rdate` FROM `Jboard_article` "
 											 + "WHERE `cate`=? AND `parent`=0 "
@@ -39,7 +39,7 @@ public class Sql {
 	public static final String SELECT_ARTICLES = "SELECT a.*, b.nick FROM `Jboard_article` AS a "
 												+ "JOIN `Jboard_member` AS b "
 												+ "ON a.uid = b.uid "
-												+ "WHERE `parent`=0 "
+												+ "WHERE `parent`=0 AND `cate`=? "
 												+ "ORDER BY `seq` DESC "
 												+ "LIMIT ?, 10;";
 
@@ -56,6 +56,8 @@ public class Sql {
 
 
 	public static final String SELECT_MAX_SEQ = "SELECT MAX(`seq`) FROM `Jboard_article`;";
+	
+	public static final String SELECT_FILE = "SELECT * FROM `Jboard_file` WHERE `fseq`=?";
 	
 	public static final String INSERT_ARTICLE = "INSERT INTO `Jboard_article` SET "
 				+ "`cate`=?,"
@@ -89,6 +91,7 @@ public class Sql {
 	public static final String UPDATE_COMMENT_COUNT_MINUS = "UPDATE `Jboard_article` SET `comment` = `comment` - 1 WHERE `seq`=?;";
 	
 	public static final String UPDATE_COMMENT = "UPDATE `Jboard_article` SET `content`=? WHERE `seq`=?";
+	public static final String UPDATE_FILE_DOWNLOAD = "UPDATE `Jboard_file` SET `download` = `download` + 1 WHERE `fseq`=?";
 	
 	public static final String DELETE_ARTICLE = "DELETE FROM `Jboard_article` WHERE `seq`=?";
 	public static final String DELETE_COMMENT = "DELETE FROM `Jboard_article` WHERE `seq`=?";

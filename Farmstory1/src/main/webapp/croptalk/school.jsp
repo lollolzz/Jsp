@@ -27,19 +27,24 @@
          </nav>
 
         <!-- 내용 시작 -->
-           <% if(mode.equals("l")){ %>
+            <% if(mode.equals("l")){ %>
             	<jsp:include page="../board/list.jsp"/>
             <% }else if(mode.equals("w")){ %>
-           		 <jsp:include page="../board/write.jsp">
-           		 	<jsp:param name="uid" value="<%= mb.getUid() %>"/>
-           		 </jsp:include>
-           	<!-- 위의 용법대로 사용한 param 형식으로 write페이지를 인클루드 해온다  -->	 
+            	<jsp:include page="../board/write.jsp">
+            		<jsp:param name="uid" value="<%= mb.getUid() %>"/>
+            	</jsp:include>
             <% }else if(mode.equals("v")){ %>
-            	<jsp:include page="../board/view.jsp"/>
+            	<jsp:include page="../board/view.jsp">
+            		<jsp:param name="uid" value="<%= mb.getUid() %>"/>
+            	</jsp:include>
             <% }else if(mode.equals("m")){ %>
-           		 <jsp:include page="../board/modify.jsp"/>
-           	<% } %>
+            	<jsp:include page="../board/modify.jsp">
+            		<jsp:param name="uid" value="<%= mb.getUid() %>"/>
+            	</jsp:include>
+            <% } %>
+             <!-- 위의 용법대로 사용한 param 형식으로 write페이지를 인클루드 해온다  -->	
             <!-- 내용 끝 -->
+            
         </article>
     </section>
 </div>

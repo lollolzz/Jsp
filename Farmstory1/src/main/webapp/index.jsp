@@ -73,7 +73,7 @@
                          <% for(ArticleBean article : latestStroy) { %>
                         <tr>
                             <td></td>
-                            <td><a href="/Farmstory1/croptalk/Stroy.jsp?mode=v&seq=<%= article.getSeq() %>"><%=article.getTitle() %></a></td>
+                            <td><a href="/Farmstory1/croptalk/stroy.jsp?mode=v&seq=<%= article.getSeq() %>"><%=article.getTitle() %></a></td>
                             <td><%=article.getRdate().substring(2,10) %></td>
                        </tr>
                        <% } %>
