@@ -2,6 +2,9 @@
 <%@ include file="../_header.jsp" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="/Farmstory1/js/zipcode.js"></script>
+<script src="/Farmstory1/js/validation.js"></script>
+<script src="/Farmstory1/js/checkUser.js"></script>
 <section id="user" class="register">
     <form action="/Farmstory1/user/proc/registerProc.jsp" method="POST">
         <table border="1">

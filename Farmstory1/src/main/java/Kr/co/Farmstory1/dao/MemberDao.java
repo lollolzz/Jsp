@@ -19,7 +19,29 @@ public class MemberDao {
 	
 	private MemberDao() {}
 	
-	public void insertMember() {}
+	public void insertMember(MemberBean mb) {
+		
+		try {
+			Connection conn = DBConfig.getInstance().getConnection();
+			PreparedStatement psmt = conn.prepareStatement(Sql.INSERT_MEMBER);
+			psmt.setString(1, mb.getUid());
+			psmt.setString(2, mb.getPass());
+			psmt.setString(3, mb.getName());
+			psmt.setString(4, mb.getNick());
+			psmt.setString(5, mb.getEmail());
+			psmt.setString(6, mb.getHp());
+			psmt.setString(7, mb.getZip());
+			psmt.setString(8, mb.getAddr1());
+			psmt.setString(9, mb.getAddr2());
+			psmt.setString(10, mb.getRegip());
+			psmt.executeUpdate();
+			psmt.close();
+			conn.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
 	public TermsBean selectTerms() {
 		
