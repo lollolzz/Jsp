@@ -48,9 +48,44 @@ public class MemberDao {
 		return null;
 	}
 	
-	public int selectCountUserInfo(int type) {
-		// 회원가입시 중복체크 관련 선
-		return 0;
+	public int selectCountUserInfo(int type, String checkData) {
+		
+		int result = 0;
+		
+		try {
+			// 1,2단계
+			Connection conn = DBConfig.getInstance().getConnection();
+			// 3단계
+			PreparedStatement psmt = null;
+			
+			if(type == 1) {
+				psmt = conn.prepareStatement(Sql.SELECT_COUNT_UID);
+			}else if(type == 2) {
+				psmt = conn.prepareStatement(Sql.SELECT_COUNT_NICK);
+			}else if(type == 3) {
+				psmt = conn.prepareStatement(Sql.SELECT_COUNT_EMAIL);
+			}else if(type == 4) {
+				psmt = conn.prepareStatement(Sql.SELECT_COUNT_HP);
+			}
+			psmt.setString(1, checkData);
+			
+			// 4단계
+			ResultSet rs = psmt.executeQuery();
+			// 5단계
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+			//6단계
+			rs.close();
+			psmt.close();
+			conn.close();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+		
+		
 	}
 	
 	public MemberBean selectMember(String uid, String pass) {

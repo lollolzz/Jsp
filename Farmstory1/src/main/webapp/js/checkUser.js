@@ -115,7 +115,7 @@ $(document).ready(function(){
 		var email = $(this).val();
 		
 		$.ajax({
-			url: '/Jboard1/user/proc/checkEmail.jsp?email='+email,
+			url: '/Farmstory1/user/proc/checkEmail.jsp?email='+email,
 			type: 'get',
 			dataType: 'json',
 			success: function(data){
@@ -130,26 +130,23 @@ $(document).ready(function(){
 	});
 	
 	// 휴대폰 중복 체크
-	$('input[name=hp]').focusout(function(){
-		
-		var hp = $(this).val();
-		
-		$.ajax({
-			url: '/Jboard1/user/proc/checkHp.jsp?hp='+hp,
-			type: 'get',
-			dataType: 'json',
-			success: function(data){
-				
-				if(data.result == 1){    						
-					$('.resultHp').css('color', 'red').text('이미 사용중인 휴대폰번호 입니다.');
-				}else{
-					$('.resultHp').css('color', 'green').text('사용 가능한 휴대폰번호 입니다.');
-				}
-			}    				
+		$('input[name=hp]').focusout(function(){
+			
+			var hp = $(this).val();
+			
+			$.ajax({
+				url: '/Farmstory1/user/proc/checkHp.jsp?hp='+hp,
+				type: 'get',
+				dataType: 'json',
+				success: function(data){
+					
+					if(data.result == 1){    						
+						$('.resultHp').css('color', 'red').text('이미 사용중인 휴대폰번호 입니다.');
+					}else{
+						$('.resultHp').css('color', 'green').text('사용 가능한 휴대폰번호 입니다.');
+					}
+				}    				
+			});
 		});
+		
 	});
-	
-});
-	
-	
-	

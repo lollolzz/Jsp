@@ -35,7 +35,8 @@
             <tr>
                 <td>이름</td>
                 <td>
-                    <input type="text" name="name" placeholder="이름 입력"/>                            
+                    <input type="text" name="name" placeholder="이름 입력"/>  
+                    <span class="resultName"></span>                          
                 </td>
             </tr>
             <tr>
@@ -50,26 +51,28 @@
                 <td>E-Mail</td>
                 <td>
                     <input type="email" name="email" placeholder="이메일 입력"/>
+                    <span class="resultEmail"></span>
                 </td>
             </tr>
             <tr>
                 <td>휴대폰</td>
                 <td>
-                    <input type="text" name="hp" placeholder="- 포함 13자리 입력" minlength="13" maxlength="13" />
+                    <input type="text" name="hp" placeholder="- 포함 13자리 입력" minlength="13" maxlength="13"/>
+                    <span class="resultHp"></span>
                 </td>
             </tr>
             <tr>
                 <td>주소</td>
                 <td>
                     <div>
-                        <input type="text" name="zip" placeholder="우편번호" readonly/>
+                        <input type="text" id="zip" name="zip" placeholder="우편번호" readonly/>
                         <button type="button" class="btnZip" onclick="zipcode()">주소검색</button>
                     </div>                            
                     <div>
-                        <input type="text" name="addr1" placeholder="주소를 검색하세요." readonly/>
+                        <input type="text" id="addr1" name="addr1" placeholder="주소를 검색하세요." readonly/>
                     </div>
                     <div>
-                        <input type="text" name="addr2" placeholder="상세주소를 입력하세요."/>
+                        <input type="text" id="addr2" name="addr2" placeholder="상세주소를 입력하세요."/>
                     </div>
                 </td>
             </tr>
