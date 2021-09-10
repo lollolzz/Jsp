@@ -8,133 +8,136 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import vo.UserVo;
+import vo.MemberVo;
 
-public class UserDao {
-	
-	private static UserDao instance = new UserDao();
-	public static UserDao getInstance() {
+public class MemberDao {
+
+	private static MemberDao instance = new MemberDao();
+	public static MemberDao getInstance() {
 		return instance;
 	}
 	
-	private UserDao() {}
-	// 다른 곳에서 생성할 수 없도록 하기 위하여 private설정값을 해줌 
-
+	private MemberDao() {}
+	
 	private final String HOST = "jdbc:mysql://3.34.49.17:3306/lollolzz1018";
 	private final String USER = "lollolzz1018";
 	private final String PASS = "tkfka1704!";
 	
-	public void inserUser(UserVo vo) {
+	public void insertMember(MemberVo vo) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			
 			Connection conn = DriverManager.getConnection(HOST, USER, PASS);
-			
-			String sql = "INSERT INTO `USER1` VALUES (?,?,?,?)";
-			
+			String sql = "INSERT INTO `MEMBER` VALUES (?,?,?,?,?,NOW())";
 			PreparedStatement psmt = conn.prepareStatement(sql);
 			psmt.setString(1, vo.getUid());
 			psmt.setString(2, vo.getName());
 			psmt.setString(3, vo.getHp());
-			psmt.setInt(4, vo.getAge());
+			psmt.setString(4, vo.getPos());
+			psmt.setInt(5, vo.getDep());
 			
 			psmt.executeUpdate();
-			// 5단계 생략
+			
 			psmt.close();
 			conn.close();
 			
-		}catch(Exception e) {
+		}catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public UserVo selectUser(String uid) {
-		UserVo vo = null;
-	
+	public MemberVo selectMember(String uid) {
+		
+		MemberVo vo = null;
+		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection conn = DriverManager.getConnection(HOST, USER, PASS);
 			
-			PreparedStatement psmt = conn.prepareStatement("SELECT * FROM `USER1` WHERE `uid`=?");
-			psmt.setString(1,uid);
+			PreparedStatement psmt = conn.prepareStatement("SELECT * FROM `MEMBER` WHERE `uid`=?");
+			psmt.setString(1, uid);
 			
 			ResultSet rs = psmt.executeQuery();
 			
 			if(rs.next()) {
-				vo = new UserVo();
+				vo = new MemberVo();
 				vo.setUid(rs.getString(1));
 				vo.setName(rs.getString(2));
 				vo.setHp(rs.getString(3));
-				vo.setAge(rs.getString(4));
+				vo.setPos(rs.getString(4));
+				vo.setDep(rs.getInt(5));
+				vo.setRdate(rs.getString(6));
 			}
 			
 			rs.close();
 			psmt.close();
 			conn.close();
-
-		}catch(Exception e) {
+			
+		}catch (Exception e) {
 			e.printStackTrace();
-		}
+		}		
+		
 		return vo;
 	}
 	
-	public List<UserVo> selectUsers() {
+	public List<MemberVo> selectMembers() {
 		
-		List<UserVo> users = new ArrayList<>();
+		List<MemberVo> members = new ArrayList<>();
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection conn = DriverManager.getConnection(HOST, USER, PASS);
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM `USER1`");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM `MEMBER`");
 			
 			while(rs.next()) {
-				UserVo vo = new UserVo();
+				MemberVo vo = new MemberVo();
 				vo.setUid(rs.getString(1));
 				vo.setName(rs.getString(2));
 				vo.setHp(rs.getString(3));
-				vo.setAge(rs.getInt(4));
+				vo.setPos(rs.getString(4));
+				vo.setDep(rs.getInt(5));
+				vo.setRdate(rs.getString(6));
 				
-				users.add(vo);
+				members.add(vo);
 			}
 			
 			rs.close();
 			stmt.close();
 			conn.close();
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		return users;
-	}
-	
-	public void updateUser(UserVo vo) {
-		try {
 			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}		
+		
+		return members;
+	}
+	public void updateMember(MemberVo vo) {
+		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection conn = DriverManager.getConnection(HOST, USER, PASS);
 			
-			String sql = "UPDATE `USER1` SET `name`=?, `hp`=?, `age`=? WHERE `uid`=?";
+			String sql = "UPDATE `MEMBER` SET `name`=?, `hp`=?, `pos`=?, `dep`=? WHERE `uid`=?";
 			PreparedStatement psmt = conn.prepareStatement(sql);
 			psmt.setString(1, vo.getName());
 			psmt.setString(2, vo.getHp());
-			psmt.setInt(3, vo.getAge());
-			psmt.setString(4, vo.getUid());
+			psmt.setString(3, vo.getPos());
+			psmt.setInt(4, vo.getDep());
+			psmt.setString(5, vo.getUid());
 			
 			psmt.executeUpdate();
 			psmt.close();
 			conn.close();
-		}catch(Exception e) {
+			
+		}catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void deleteUser(String uid) {
-		
+	public void deleteMember(String uid) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			
 			Connection conn = DriverManager.getConnection(HOST, USER, PASS);
-			String sql = "DELETE FROM `USER1` WHERE `uid`=?";
+			String sql = "DELETE FROM `MEMBER` WHERE `uid`=?";
 			PreparedStatement psmt = conn.prepareStatement(sql);
 			psmt.setString(1, uid);
 			psmt.executeUpdate();
@@ -144,7 +147,5 @@ public class UserDao {
 			e.printStackTrace();
 		}
 	}
-	
-	
 	
 }

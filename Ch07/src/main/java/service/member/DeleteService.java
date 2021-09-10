@@ -1,9 +1,9 @@
-package service.user;
+package service.member;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.UserDao;
+import dao.MemberDao;
 import model.CommonService;
 
 public class DeleteService implements CommonService {
@@ -12,11 +12,10 @@ public class DeleteService implements CommonService {
 	public String requestProc(HttpServletRequest req, HttpServletResponse resp) {
 		
 		String uid = req.getParameter("uid");
-		// list에서 삭제 누르면 여기 파라미터가 받아준다
-		UserDao.getInstance().deleteUser(uid);
 		
+		MemberDao.getInstance().deleteMember(uid);
 		
-		
-		return "redirect:/user/list.do";
+		return "redirect:/member/list.do";
 	}
+
 }
