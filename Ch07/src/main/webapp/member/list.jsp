@@ -29,8 +29,8 @@
 				<td>${member.dep}</td>
 				<td>${member.rdate.substring(2, 10)}</td>
 				<td>
-					<a href="/Ch07/member/modify.do?uid=${member.uid}">수정</a>
-					<a href="/Ch07/member/delete.do?uid=${member.uid}">삭제</a>
+					<a href="/Ch07/member/modify.do?$uid=${member.uid}">수정</a>
+					<a href="#">삭제</a>
 				</td>
 			</tr>
 		</c:forEach>

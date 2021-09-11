@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vo.MemberVo;
+import vo.UserVo;
 
 public class MemberDao {
 
@@ -16,7 +17,6 @@ public class MemberDao {
 	public static MemberDao getInstance() {
 		return instance;
 	}
-	
 	private MemberDao() {}
 	
 	private final String HOST = "jdbc:mysql://3.34.49.17:3306/lollolzz1018";
@@ -24,6 +24,7 @@ public class MemberDao {
 	private final String PASS = "tkfka1704!";
 	
 	public void insertMember(MemberVo vo) {
+		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection conn = DriverManager.getConnection(HOST, USER, PASS);
@@ -46,7 +47,6 @@ public class MemberDao {
 	}
 	
 	public MemberVo selectMember(String uid) {
-		
 		MemberVo vo = null;
 		
 		try {
@@ -77,6 +77,7 @@ public class MemberDao {
 		}		
 		
 		return vo;
+		
 	}
 	
 	public List<MemberVo> selectMembers() {
@@ -112,17 +113,18 @@ public class MemberDao {
 		return members;
 	}
 	public void updateMember(MemberVo vo) {
+		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection conn = DriverManager.getConnection(HOST, USER, PASS);
 			
-			String sql = "UPDATE `MEMBER` SET `name`=?, `hp`=?, `pos`=?, `dep`=? WHERE `uid`=?";
+			String sql = "UPDATE `MEMBER` SET `name`=?, `hp`=?, `age`=? WHERE `uid`=?";
 			PreparedStatement psmt = conn.prepareStatement(sql);
-			psmt.setString(1, vo.getName());
-			psmt.setString(2, vo.getHp());
-			psmt.setString(3, vo.getPos());
-			psmt.setInt(4, vo.getDep());
-			psmt.setString(5, vo.getUid());
+			psmt.setString(1, vo.getUid());
+			psmt.setString(2, vo.getName());
+			psmt.setString(3, vo.getHp());
+			psmt.setString(4, vo.getPos());
+			psmt.setInt(5, vo.getDep());
 			
 			psmt.executeUpdate();
 			psmt.close();
@@ -133,19 +135,7 @@ public class MemberDao {
 		}
 	}
 	
-	public void deleteMember(String uid) {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			Connection conn = DriverManager.getConnection(HOST, USER, PASS);
-			String sql = "DELETE FROM `MEMBER` WHERE `uid`=?";
-			PreparedStatement psmt = conn.prepareStatement(sql);
-			psmt.setString(1, uid);
-			psmt.executeUpdate();
-			psmt.close();
-			conn.close();
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	
+	public void deleteMember() {}
 	
 }

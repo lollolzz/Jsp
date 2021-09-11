@@ -1,14 +1,12 @@
 package vo;
 
 public class MemberVo {
-	
 	private String uid;
 	private String name;
 	private String hp;
 	private String pos;
 	private int dep;
 	private String rdate;
-	
 	
 	public String getUid() {
 		return uid;
@@ -43,7 +41,7 @@ public class MemberVo {
 	public void setDep(String dep) {
 		this.dep = Integer.parseInt(dep);
 	}
-	
+	// 오버로딩 메서드로 만들어주기 registerservice에서 age값을 받아오기 위해
 	public String getRdate() {
 		return rdate;
 	}
@@ -52,5 +50,5 @@ public class MemberVo {
 	}
 	
 	
-
+	
 }

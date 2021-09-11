@@ -19,9 +19,7 @@
   	<!-- 서블릿으로 사용할 서블릿 클래스의 완전한 이름을 입력 -->
   </servlet>
   <!--controller.MainControllerㄹ클래스를 MainController라는 이름의 서블릿으로 등록하고 있다.  -->
-  
-  
-  
+
   <!-- MinaCotroller에 만들어진 서블릿의 경로를 알게 지정해주기 위하여 url맵핑작업이 필요하다 -->
   <servlet-mapping>
   	<servlet-name>MainController</servlet-name>
@@ -58,9 +56,5 @@
   	<filter-name>SetCharacterEncodingFilter</filter-name>
   	<url-pattern>*.do</url-pattern>
   </filter-mapping>
-  
-  
-  
-  
-  
+
 </web-app>
