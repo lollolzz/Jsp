@@ -2,6 +2,9 @@
 <%@ include file="../_header.jsp" %>
 <%
 
+	if( mb == null){
+		response.sendRedirect("/Farmstory2/user/login.jsp");
+	}
 
 	String group		= request.getParameter("group");
 	String cate			= request.getParameter("cate");

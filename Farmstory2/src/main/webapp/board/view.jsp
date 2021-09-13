@@ -6,14 +6,14 @@
 <%@ include file="../_header.jsp" %>
 <%
 	
+
 	// 뷰페이지는 목록에 있는 글 누르면 접속되는 페이지여서 seq로 수신한다.
-	
-	
 	String seq 			= request.getParameter("seq");
 	String group		= request.getParameter("group");
 	String cate			= request.getParameter("cate");
 	String uid 			= mb.getUid();
 	String includeFile 	= "./_aside"+group+".jsp";
+	
 
 	// 싱글톤 사용
 	ArticleDao dao = ArticleDao.getInstance();

@@ -3,8 +3,9 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 		MemberBean mb = (MemberBean) session.getAttribute("sessMember");
-
+		
 		String success = request.getParameter("success");
+		
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,8 +13,9 @@
     <meta charset="UTF-8">
     <title>팜스토리</title>
     <link rel="stylesheet" href="/Farmstory2/css/style.css?ver=1"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+      
     <script>
+    
     	var success = "<%= success %>";
     	
     	if(success == 100){
@@ -49,5 +51,6 @@
                 <li><a href="/Farmstory2/board/list.jsp?group=Croptalk&cate=story">농작물이야기</a></li>
                 <li><a href="/Farmstory2/board/list.jsp?group=Event&cate=event">이벤트</a></li>
                 <li><a href="/Farmstory2/board/list.jsp?group=Community&cate=notice">커뮤니티</a></li>
+            	<!--group,cate는 키를 나타내고 Market과 market은 값을 나타낸 -->
             </ul>
         </header>

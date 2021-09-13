@@ -14,6 +14,8 @@
 	if(pg == null){
 		pg = "1";
 	}
+	//페이지를 선택하지 않은 상태에서는 무조건적으로 1페이지로 간다는 의미 
+	
 	// 페이지 계산 처리 
 	int start = 0;
 	int currentPage = Integer.parseInt(pg);

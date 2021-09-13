@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 	String cate 	= request.getParameter("cate");
+	//group은 필요없다 이미 market이라는 group페이지 이다 
 
 	String title	= "";
 	
