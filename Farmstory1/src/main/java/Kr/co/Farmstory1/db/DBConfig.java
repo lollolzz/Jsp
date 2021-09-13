@@ -17,14 +17,10 @@ public class DBConfig {
 			return instance;
 		}
 		
-//		// DB정보
-//		private final String HOST = "jdbc:mysql://3.34.49.17:3306/lollolzz1018";
-//		private final String USER = "lollolzz1018";
-//		private final String PASS = "tkfka1704!";
 		// DB정보
-		private final String HOST = "jdbc:mysql://3.34.132.158:3306/lollolzz1018";
+		private final String HOST = "jdbc:mysql://54.180.160.240:3306/lollolzz1018";
 		private final String USER = "lollolzz1018";
-		private final String PASS = "tkfka1704!";
+		private final String PASS = "1234";
 		
 		public Connection getConnection() throws Exception {
 			// 1단계
