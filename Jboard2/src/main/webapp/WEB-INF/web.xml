@@ -42,6 +42,15 @@
   	</auth-constraint>
   </security-constraint>
   
+  <!-- index를 불러오기 위한 표현
+  위에서 막아둔 jsp를 free pages를 해주어서 풀어준다 -->
+  <security-constraint>
+  	<web-resource-collection>
+  		<web-resource-name>free pages</web-resource-name>
+  		<url-pattern>/index.jsp</url-pattern>
+  	</web-resource-collection>
+  </security-constraint>
+  
   <!-- 문자셋 인코딩 필터 등록 -->
   <filter>
   	<filter-name>SetCharacterEncodingFilter</filter-name>

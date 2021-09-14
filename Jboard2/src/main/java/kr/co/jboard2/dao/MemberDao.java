@@ -77,8 +77,7 @@ public class MemberDao {
 		// 출력되어야 하기 때문인거 같다.
 		return vo;		
 	}
-	public void selectMember() {}
-	public void selectMembers() {}
+	
 	
 public int selectCountUserInfo(int type, String checkData) {
 	// 각종 중복 체크 를 할때 사용할 부분 
@@ -121,6 +120,46 @@ public int selectCountUserInfo(int type, String checkData) {
 		
 	}
 	
+public MemberVo selectMember(String uid, String pass) {
+	
+	MemberVo vo = null;
+	
+	try {
+		Connection conn = DBConfig.getInstance().getConnection();
+		PreparedStatement psmt = conn.prepareStatement(Sql.SELECT_MEMBER);
+		psmt.setString(1, uid);
+		psmt.setString(2, pass);
+		
+		ResultSet rs = psmt.executeQuery();
+		
+		if(rs.next()) {
+			vo = new MemberVo();
+			vo.setUid(rs.getString(1));
+			vo.setPass(rs.getString(2));
+			vo.setName(rs.getString(3));
+			vo.setNick(rs.getString(4));
+			vo.setEmail(rs.getString(5));
+			vo.setHp(rs.getString(6));
+			vo.setGrade(rs.getInt(7));
+			vo.setZip(rs.getString(8));
+			vo.setAddr1(rs.getString(9));
+			vo.setAddr2(rs.getString(10));
+			vo.setRegip(rs.getString(11));
+			vo.setRdate(rs.getString(12));
+		}
+		
+		rs.close();
+		psmt.close();
+		conn.close();	
+	}catch (Exception e) {
+		e.printStackTrace();
+	}
+	
+	return vo;
+}
+	
+	
+	public void selectMembers() {}
 	
 	public void updateMember() {}
 	public void deleteMember() {}
