@@ -1,8 +1,12 @@
 package kr.co.jboard2.controller;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -17,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.co.jboard2.service.CommonService;
+import kr.co.jboard2.vo.FileVo;
 
 
 
@@ -144,6 +149,39 @@ public class MainController extends HttpServlet {
 			// 이 표현에서의 값은 register.jsp의 function(data)부분으로 간다
 			
 			
+		}else if(result.startsWith("file:")) {
+			// "file:"로하는이유는 위의 것들과 형식적으로 통일 하기 위하여 
+			// service에서 저장한 FileVo객체 controller에서 꺼내기 
+			FileVo fvo = (FileVo) req.getAttribute("fvo");
+		
+			// response 헤더 수정 
+			resp.setContentType("application/octet-stream");
+			resp.setHeader("Content-Disposition", "attachment; filename="+URLEncoder.encode(fvo.getOriName(), "utf-8"));
+			// URLEncoder.encode("파일명.txt", "utf-8"));-> 1번 ""의 이름으로  2번"" 형식으로 파일이 다운받아 진다 
+			resp.setHeader("Content-Transfer-Encoding", "binary");
+			resp.setHeader("Pragma", "no-cache");
+			resp.setHeader("Cache-Control", "private");
+			
+			// response 객체 파일 스트림 작업
+			String filepath = req.getServletContext().getRealPath("/file");
+			File file = new File(filepath+"/"+fvo.getNewName());
+			// NewName() -> 년월일시분초_id 형식으로 파일이 저장되게 하는 것 
+			// resq객체를 파일데이터를 실어서 새로운 이름 으로 만들어주는 것
+			BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
+			BufferedOutputStream bos = new BufferedOutputStream(resp.getOutputStream());
+			
+			while(true){
+				int data = bis.read();
+				
+				if(data == -1){ // data가 없을 경우
+					break;
+				}
+				bos.write(data);
+			}
+			
+			bos.close();
+			bis.close();
+
 		}else {
 			// 해당 View로 forward 하기
 			// RequestDispatcher 클래스는 클아이언트로 부터 요청request를 받고 그것을 서버상의 다른 웹
