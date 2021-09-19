@@ -5,9 +5,9 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import kr.co.jboard2.dao.MemberDao;
 import kr.co.jboard2.service.CommonService;
 import kr.co.jboard2.vo.TermsVo;
+import kr.co.jboard2.dao.MemberDao;
 import kr.co.jboard2.vo.MemberVo;
 
 
