@@ -5,8 +5,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.JsonObject;
 
-import kr.co.jboard2.service.CommonService;
 import kr.co.jboard2.dao.MemberDao;
+import kr.co.jboard2.service.CommonService;
 
 public class CheckUidService implements CommonService {
 
