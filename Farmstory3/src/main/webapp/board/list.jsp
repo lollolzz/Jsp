@@ -1,48 +1,58 @@
-<%@page import="kr.co.Farmstory3.bean.ArticleBean"%>
-<%@page import="java.util.List"%>
-<%@page import="kr.co.Farmstory3.dao.ArticleDao"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
-<%
-	// 전송데이터 수신
-	request.setCharacterEncoding("utf-8");
-	String pg 		= request.getParameter("pg");
-	String group 	= request.getParameter("group");
-	// aside에서 보내는 cate를 group으로 묶은것
-	String cate 	= request.getParameter("cate");
-	String includeFile 	= "./_aside" + group + ".jsp";
-	
-	if(pg == null){
-		pg = "1";
-	}
-	// 페이지 계산 처리
-	// 페이지 계산 처리 
-	int start = 0;
-	int currentPage = Integer.parseInt(pg);
-	int total = ArticleDao.getInstance().selectCountTotal(cate);
-	int lastPageNum = 0;
-	
-	if(total % 10 == 0){
-		lastPageNum = total / 10;
-	}else{
-		lastPageNum = total / 10 + 1;
-	}	
-	start = (currentPage - 1) * 10;
-	
-	int pageStartNum = total - start;
-	int groupCurrent = (int)Math.ceil(currentPage / 10.0);
-	int groupStart = (groupCurrent - 1) * 10 + 1;
-	int groupEnd = groupCurrent * 10;
-	
-	if(groupEnd > lastPageNum){
-		groupEnd = lastPageNum;
-	}
-
-	// 게시물 가져오기
-	List<ArticleBean> article = ArticleDao.getInstance().selectArticles(cate, start);
-
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../_header.jsp" %>
-<jsp:include page="<%= includeFile %>">
-	<jsp:param name="cate" value="<%= cate %>"/>
+<jsp:include page="./_aside${group}.jsp">
+    <jsp:param value="${cate}" name="cate"/>
 </jsp:include>
-<!-- _aside페이지를 group.jsp로 묶어서 각페이지 마다 include시킬 예정 -->
+<section id="board" class="list">
+    <h3>글목록</h3>
+    <article>
+        <p>
+            ${sessMember.nick}님 반갑습니다.
+            <a href="/Farmstory3/member/logout.do" class="logout">[로그아웃]</a>
+        </p>
+        <table border="0">
+            <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>글쓴이</th>
+                <th>날짜</th>
+                <th>조회</th>
+            </tr>
+            
+             <c:forEach var = "vo" items="${articles}">
+                    <tr>
+                        <td>${pageStartNum = pageStartNum -1}</td>
+                        <td><a href="/Farmstory3/board/view.do?group=${group}&cate=${cate}&seq=${vo.seq}">${vo.title}</a>&nbsp;[1]</td>
+                        <td>${vo.nick}</td>
+                        <td>${vo.rdate}</td>
+                        <td>${vo.hit}</td>
+                    </tr>
+                    </c:forEach>
+                </table>
+            </article>
+
+    <!-- 페이지 네비게이션 -->
+    <div class="paging">
+    	<c:if test="${groups[0] > 1}">
+        	<a href="/Farmstory3/board/list.do?pg=${groups[0] - 1}" class="prev">이전</a>
+        </c:if>
+        <c:forEach var="i" begin="${groups[0]}" end="${groups[1]}">
+        	<a href="/Farmstory3/board/list.do?pg=${i}" class="num ${currentPage == i ? 'current':'off'}">${i}</a>
+        </c:forEach>
+        <c:if test="${groups[1] < lastPageNum}">                
+        	<a href="/Farmstory3/board/list.do?pg=${groups[1] + 1}" class="next">다음</a>
+        </c:if>
+    </div>
+
+    <!-- 글쓰기 버튼 -->
+    <a href="/Farmstory3/board/write.do?group=${group}&cate=${cate}" class="btnWrite">글쓰기</a>
+
+</section>
+
+<!-- 내용 끝 -->
+</article>
+</section>
+</div>
+
+<%@ include file="../_footer.jsp" %>

@@ -1,5 +1,6 @@
-package kr.co.Farmstory3.db;
+package kr.co.farmstory3.db;
 
+// db에 저장된것을 불러오기 위하여 필요한 패키지이다
 public class Sql {
 
 	
@@ -25,12 +26,7 @@ public class Sql {
 	
 	
 	// 게시판 관련 
-	public static final String SELECT_COUNT_TOTAL = "SELECT COUNT(`seq`) FROM `Jboard_article` WHERE `parent`=0 AND `cate`=?";
-	
-	public static final String SELECT_LATEST = "SELECT `seq`, `title`, `rdate` FROM `Jboard_article` "
-											 + "WHERE `cate`=? AND `parent`=0 "
-											 + "ORDER BY `seq` DESC LIMIT 5";
-	
+	public static final String SELECT_COUNT_TOTAL = "SELECT COUNT(`seq`) FROM `Jboard_article` WHERE `parent`=0;";
 	public static final String SELECT_ARTICLE = "SELECT * FROM `Jboard_article` AS a "
 											  + "LEFT JOIN `Jboard_file` AS b "
 											  + "ON a.seq = b.parent "
@@ -49,54 +45,58 @@ public class Sql {
 	
 	
 	public static final String SELECT_COMMENTS = "SELECT a.*, b.nick FROM `Jboard_article` AS a "
-            + "JOIN `Jboard_member` AS b "
-            + "ON a.uid = b.uid "
-            + "WHERE `parent`=? "
-            + "ORDER BY `seq` ASC;";
-
-
+			                                    + "JOIN `Jboard_member` AS b "
+			                                    + "ON a.uid = b.uid "
+			                                    + "WHERE `parent`=? "
+			                                    + "ORDER BY `seq` ASC;";
+	
+	
 	public static final String SELECT_MAX_SEQ = "SELECT MAX(`seq`) FROM `Jboard_article`;";
 	
 	public static final String SELECT_FILE = "SELECT * FROM `Jboard_file` WHERE `fseq`=?";
 	
 	public static final String INSERT_ARTICLE = "INSERT INTO `Jboard_article` SET "
-				+ "`cate`=?,"
-				+ "`title`=?,"
-				+ "`content`=?,"
-				+ "`file`=?,"
-				+ "`uid`=?,"
-				+ "`regip`=?,"
-				+ "`rdate`=NOW();";
+												+ "`cate`=?, "
+												+ "`title`=?,"
+												+ "`content`=?,"
+												+ "`file`=?,"
+												+ "`uid`=?,"
+												+ "`regip`=?,"
+												+ "`rdate`=NOW();";
 	
 	public static final String INSERT_FILE = "INSERT INTO `Jboard_file` SET "
-			+ "`parent`=?,"
-			+ "`oriName`=?,"
-			+ "`newName`=?,"
-			+ "`rdate`=NOW();";
+											+ "`parent`=?,"
+											+ "`oriName`=?,"
+											+ "`newName`=?,"
+											+ "`rdate`=NOW();";
 	
 	public static final String INSERT_COMMENT = "INSERT INTO `Jboard_article` SET "
-			  + "`parent`=?,"
-			  + "`content`=?,"
-			  + "`uid`=?,"
-			  + "`regip`=?,"
-			  + "`rdate`=NOW();";
-	
+											  + "`parent`=?,"
+											  + "`content`=?,"
+											  + "`uid`=?,"
+											  + "`regip`=?,"
+											  + "`rdate`=NOW();";
 	
 	public static final String UPDATE_ARTICLE = "UPDATE `Jboard_article` SET "
-				+ "`title`=?,"
-				+ "`content`=? "
-				+ "WHERE `seq`=?";
+																			+ "`title`=?,"
+																			+ "`content`=? "
+																			+ "WHERE `seq`=?";
 	public static final String UPDATE_ARTICLE_HIT = "UPDATE `Jboard_article` SET `hit` = `hit` + 1 WHERE `seq`=?;";
-	public static final String UPDATE_COMMENT_COUNT_PLUS  = "UPDATE `Jboard_article` SET `comment` = `comment` + 1 WHERE `seq`=?;";
+	public static final String UPDATE_COMMENT_COUNT_PLUS = "UPDATE `Jboard_article` SET `comment` = `comment` + 1 WHERE `seq`=?;";
 	public static final String UPDATE_COMMENT_COUNT_MINUS = "UPDATE `Jboard_article` SET `comment` = `comment` - 1 WHERE `seq`=?;";
+	// update들은 양식이 동일 하다 
 	
 	public static final String UPDATE_COMMENT = "UPDATE `Jboard_article` SET `content`=? WHERE `seq`=?";
 	public static final String UPDATE_FILE_DOWNLOAD = "UPDATE `Jboard_file` SET `download` = `download` + 1 WHERE `fseq`=?";
 	
 	public static final String DELETE_ARTICLE = "DELETE FROM `Jboard_article` WHERE `seq`=?";
-	public static final String DELETE_COMMENT = "DELETE FROM `Jboard_article` WHERE `seq`=?";
+	public static final String DELETE_COMMNET = "DELETE FROM `Jboard_article` WHERE `seq`=?";
+
 
 
 }
+
+
+
 
 

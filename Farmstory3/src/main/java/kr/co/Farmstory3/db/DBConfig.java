@@ -1,9 +1,7 @@
-package kr.co.Farmstory3.db;
+package kr.co.farmstory3.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-
-import kr.co.Farmstory3.db.DBConfig;
 
 public class DBConfig {
 
@@ -20,11 +18,7 @@ public class DBConfig {
 		}
 		
 		// DB정보
-//		private final String HOST = "jdbc:mysql://3.34.49.17:3306/lollolzz1018";
-//		private final String USER = "lollolzz1018";
-//		private final String PASS = "tkfka1704!";
-		// DB정보
-		private final String HOST = "jdbc:mysql://3.34.132.158:3306/lollolzz1018";
+		private final String HOST = "jdbc:mysql://3.34.49.17:3306/lollolzz1018";
 		private final String USER = "lollolzz1018";
 		private final String PASS = "tkfka1704!";
 		
@@ -37,10 +31,3 @@ public class DBConfig {
 			return conn;
 		}
 }
-
-
-
-
-
-
-

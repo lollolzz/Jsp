@@ -1,6 +1,6 @@
-package kr.co.Farmstory3.bean;
+package kr.co.farmstory3.vo;
 
-public class MemberBean {
+public class MemberVo {
 
 	private String uid;
 	private String pass;

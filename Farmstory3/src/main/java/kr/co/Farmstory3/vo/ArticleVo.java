@@ -1,6 +1,6 @@
-package kr.co.Farmstory3.bean;
+package kr.co.farmstory3.vo;
 
-public class ArticleBean {
+public class ArticleVo {
 
 	private int seq;
 	private int parent;
@@ -16,14 +16,13 @@ public class ArticleBean {
 	
 	// 추가 필드 
 	private String nick;
-	private FileBean fb;
+	private FileVo fb;
 	
-
-	public FileBean getFb() {
+	public FileVo getFb() {
 		return fb;
 	}
 	
-	public void setFb(FileBean fb) {
+	public void setFb(FileVo fb) {
 		this.fb = fb;
 	}
 	
