@@ -9,7 +9,6 @@ Jsp 수업
 > JSP 조건문 실습하기,
 > JSP 반복문 실습하기 
 
-
 #### Ch03.JSP 내장 객체 실습
 > JSP request 객체 실습하기,
 > JSP pageContext 내장 객체 실습하기,
